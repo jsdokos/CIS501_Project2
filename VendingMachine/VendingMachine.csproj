@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Can.cs" />
+    <Compile Include="Coin.cs" />
     <Compile Include="OutputDevices.cs" />
     <Compile Include="InputDevices.cs" />
     <Compile Include="VendingMachine.cs">
@@ -58,6 +60,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VMControl.cs" />
     <EmbeddedResource Include="VendingMachine.resx">
       <SubType>Designer</SubType>
       <DependentUpon>VendingMachine.cs</DependentUpon>
