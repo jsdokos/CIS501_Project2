@@ -25,7 +25,7 @@ namespace VendingMachine
 
         public static readonly int[] COINVALUES = { 10, 50, 100, 500 };
         public static readonly int[] NUMCOINS = { 15, 10, 5, 2 };
-            // 10Yen, 50Yen, 100Yen, 500Yen
+        // 10Yen, 50Yen, 100Yen, 500Yen
       
         // Boundary Objects
         private AmountDisplay amountDisplay;
@@ -38,17 +38,29 @@ namespace VendingMachine
         private Light purchasableLight0, purchasableLight1, purchasableLight2, purchasableLight3;
         private CoinDispenser coinDispenser10Yen, coinDispenser50Yen, coinDispenser100Yen, coinDispenser500Yen;
         private CanDispenser canDispenser0, canDispenser1, canDispenser2, canDispenser3;
+
+
         private CoinInserter coinInserter10Yen, coinInserter50Yen, coinInserter100Yen, coinInserter500Yen;
         private PurchaseButton purchaseButton0, purchaseButton1, purchaseButton2, purchaseButton3;
         private CoinReturnButton coinReturnButton;
 
         // Declare fields for your entity and control objects
-
+        public Coin[] userMoney = new Coin[4];
+        public int totalAmountInserted = 0;
+        public Can[] allProduct = new Can[4];
 
 
         public VendingMachine()
         {
             InitializeComponent();
+            //initialize cans, new method for reset?
+            for (int i = 0; i < 4; i++)
+            {
+                allProduct[i] = new Can(CANNAMES[i], CANPRICES[i], NUMCANS[i]);
+                userMoney[i] = new Coin(COINVALUES[i], NUMCOINS[i]);
+            }
+
+            
         }
         
         private void Form1_Load(object sender, EventArgs e)
@@ -202,9 +214,17 @@ namespace VendingMachine
                                       // same textbox object
         }
 
+        //TODO Make sure this works
         private void btnReset_Click(object sender, EventArgs e)
         {
             // Write the body to reset the field values of entity objects
+            //initialize cans, new method for reset?
+            for (int i = 0; i < 4; i++)
+            {
+                allProduct[i] = new Can(CANNAMES[i], CANPRICES[i], NUMCANS[i]);
+                userMoney[i] = new Coin(COINVALUES[i], NUMCOINS[i]);
+            }
+            totalAmountInserted = 0;
         }
 
         private void displayCanPricesAndNames()
@@ -222,16 +242,16 @@ namespace VendingMachine
         private void updateDebugDisplays()
         {
             // You need to change XXX to appropriate "object.property"
-            /* 
-            displayNum10Yen.Display(XXX);
-            displayNum50Yen.Display(XXX);
-            displayNum100Yen.Display(XXX);
-            displayNum500Yen.Display(XXX);
-            displayNumCans0.Display(XXX);
-            displayNumCans1.Display(XXX);
-            displayNumCans2.Display(XXX);
-            displayNumCans3.Display(XXX);
-             * */
+
+            displayNum10Yen.Display(userMoney[0].numberOfCoins);
+            displayNum50Yen.Display(userMoney[1].numberOfCoins);
+            displayNum100Yen.Display(userMoney[2].numberOfCoins);
+            displayNum500Yen.Display(userMoney[3].numberOfCoins);
+            displayNumCans0.Display(allProduct[0].Stock);
+            displayNumCans1.Display(allProduct[0].Stock);
+            displayNumCans2.Display(allProduct[0].Stock);
+            displayNumCans3.Display(allProduct[0].Stock);
+
         }
 
     

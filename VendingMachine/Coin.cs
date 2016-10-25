@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace VendingMachine
 {
-    class Coin
+    public class Coin
     {
         public int value;
         public int numberOfCoins;
 
-        public Coin(int IValue)
+        public Coin(int IValue, int INum)
         {
-            IValue = value;
-            numberOfCoins = 0;
+            value = IValue;
+            numberOfCoins = INum;
         }
 
         public void returnChange()

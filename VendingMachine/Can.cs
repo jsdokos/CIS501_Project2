@@ -7,19 +7,24 @@ using System.Threading.Tasks;
 
 namespace VendingMachine
 {
-    class Can
+    public class Can
     {
-        public String Name;
-        public int Price;
-        public int Stock;
-        public bool isPurchasable;
+        public string Name = "";
+        public int Price = 0;
+        public int Stock = 0;
+        public bool isPurchasable = false;
 
         public Can(String IName, int IPrice, int IStock)
         {
             Name = IName;
             Price = IPrice;
-            IStock = Stock;
+            Stock = IStock;
             isPurchasable = false;
+        }
+
+        public Can()
+        {
+            Name = "test";
         }
 
         public void PurchaseItem()
