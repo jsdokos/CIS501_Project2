@@ -45,22 +45,14 @@ namespace VendingMachine
         private CoinReturnButton coinReturnButton;
 
         // Declare fields for your entity and control objects
-        public Coin[] userMoney = new Coin[4];
-        public int totalAmountInserted = 0;
-        public Can[] allProduct = new Can[4];
+        public static Coin[] userMoney = new Coin[4];
+        public static int totalAmountInserted = 0;
+        public static Can[] allProduct = new Can[4];
 
 
         public VendingMachine()
         {
             InitializeComponent();
-            //initialize cans, new method for reset?
-            for (int i = 0; i < 4; i++)
-            {
-                allProduct[i] = new Can(CANNAMES[i], CANPRICES[i], NUMCANS[i]);
-                userMoney[i] = new Coin(COINVALUES[i], NUMCOINS[i]);
-            }
-
-            
         }
         
         private void Form1_Load(object sender, EventArgs e)
@@ -107,33 +99,69 @@ namespace VendingMachine
             canDispenser2 = new CanDispenser(txtCanDispenser, CANNAMES[2]);
             canDispenser3 = new CanDispenser(txtCanDispenser, CANNAMES[3]);
 
+            //initialize cans, new method for reset?
+            for (int i = 0; i < 4; i++)
+            {
+                allProduct[i] = new Can(CANNAMES[i], CANPRICES[i], NUMCANS[i]);
+                userMoney[i] = new Coin(COINVALUES[i], NUMCOINS[i]);
+            }
+
             // You must replace the following default constructors with 
             // constructors with arguments (non-default constructors)
             // to pass (set) the first object that ButtonPressed() will
             // visit
-            purchaseButton0 = new PurchaseButton();
-            purchaseButton1 = new PurchaseButton();
-            purchaseButton2 = new PurchaseButton();
-            purchaseButton3 = new PurchaseButton();
+            purchaseButton0 = new PurchaseButton(allProduct[0]);
+            purchaseButton1 = new PurchaseButton(allProduct[1]);
+            purchaseButton2 = new PurchaseButton(allProduct[2]);
+            purchaseButton3 = new PurchaseButton(allProduct[3]);
 
             // You must replace the following default constructors with
             // constructors that take armuments to pass the first object that
             // the CoinInserted() will call
-            coinInserter10Yen = new CoinInserter();
-            coinInserter50Yen = new CoinInserter();
-            coinInserter100Yen = new CoinInserter();
-            coinInserter500Yen = new CoinInserter();
+            coinInserter10Yen = new CoinInserter(userMoney[0]);
+            coinInserter50Yen = new CoinInserter(userMoney[1]);
+            coinInserter100Yen = new CoinInserter(userMoney[2]);
+            coinInserter500Yen = new CoinInserter(userMoney[3]);
 
-            coinReturnButton = new CoinReturnButton();
+            coinReturnButton = new CoinReturnButton(userMoney);
+
+            //add in lights so they can be easily turned on
+            allProduct[0].purchaseLight = purchasableLight0;
+            allProduct[1].purchaseLight = purchasableLight1;
+            allProduct[2].purchaseLight = purchasableLight2;
+            allProduct[3].purchaseLight = purchasableLight3;
+
+            allProduct[0].soldOutLight = soldOutLight0;
+            allProduct[1].soldOutLight = soldOutLight1;
+            allProduct[2].soldOutLight = soldOutLight2;
+            allProduct[3].soldOutLight = soldOutLight3;
 
             // Instantiate your entity and control objects
             // Connect these objects
+            //VMControl.mainControl();
+
 
             // Display debug information
             displayCanPricesAndNames();
             updateDebugDisplays();
+
         }
 
+        public static void updateLights(Coin moneyInsterted)
+        {
+            moneyInsterted.updateAmount();
+
+            for (int i = 0; i < 4; i++)
+            {
+                allProduct[i].canPurchaseLight();
+            }
+        }
+
+        public static void purchaseItem(Can product)
+        {
+            product.Stock--;
+
+        }
  
         private void btnCoinInserter10Yen_Click(object sender, EventArgs e)
         {
@@ -218,15 +246,21 @@ namespace VendingMachine
         private void btnReset_Click(object sender, EventArgs e)
         {
             // Write the body to reset the field values of entity objects
+
             //initialize cans, new method for reset?
             for (int i = 0; i < 4; i++)
             {
-                allProduct[i] = new Can(CANNAMES[i], CANPRICES[i], NUMCANS[i]);
-                userMoney[i] = new Coin(COINVALUES[i], NUMCOINS[i]);
+                allProduct[i].Stock = NUMCANS[i];
+                userMoney[i].numberOfCoins = NUMCOINS[i];
+                allProduct[i].purchaseLight.TurnOff();
+                allProduct[i].soldOutLight.TurnOff();
             }
             totalAmountInserted = 0;
+            displayCanPricesAndNames();
+            updateDebugDisplays();
         }
 
+        //TODO maybe change this to references of the objects
         private void displayCanPricesAndNames()
         {
             displayPrice0.Display("\\" + CANPRICES[0]);
@@ -248,9 +282,11 @@ namespace VendingMachine
             displayNum100Yen.Display(userMoney[2].numberOfCoins);
             displayNum500Yen.Display(userMoney[3].numberOfCoins);
             displayNumCans0.Display(allProduct[0].Stock);
-            displayNumCans1.Display(allProduct[0].Stock);
-            displayNumCans2.Display(allProduct[0].Stock);
-            displayNumCans3.Display(allProduct[0].Stock);
+            displayNumCans1.Display(allProduct[1].Stock);
+            displayNumCans2.Display(allProduct[2].Stock);
+            displayNumCans3.Display(allProduct[3].Stock);
+
+            amountDisplay.DisplayAmount(totalAmountInserted);
 
         }
 

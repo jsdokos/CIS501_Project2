@@ -6,15 +6,19 @@ using System.Threading.Tasks;
 
 namespace VendingMachine
 {
-    public class VMControl
+    public class VMControl : VendingMachine
     {
-        public Coin[] userMoney;
-        public int totalAmountInserted;
-
         public VMControl()
         {
-            //initialize coin array
-            totalAmountInserted = 0;
+        }
+
+        public static void mainControl()
+        {
+            while (true)
+            {
+
+            }
+            
         }
     }
 }

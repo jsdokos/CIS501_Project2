@@ -17,9 +17,15 @@ namespace VendingMachine
             numberOfCoins = INum;
         }
 
-        public void returnChange()
+        public void updateAmount()
         {
-            
+            VendingMachine.totalAmountInserted += this.value;
+            this.numberOfCoins++;
+        }
+
+        public static void returnChange(Coin[] allCoins)
+        {
+            //TODO return change here
         }
 
         public void displayAmount()
