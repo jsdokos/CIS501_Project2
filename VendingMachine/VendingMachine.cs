@@ -34,9 +34,9 @@ namespace VendingMachine
         private DebugDisplay displayName0, displayName1, displayName2, displayName3;
         private DebugDisplay displayNumCans0, displayNumCans1, displayNumCans2, displayNumCans3;
         private Light soldOutLight0, soldOutLight1, soldOutLight2, soldOutLight3;
-        private TimerLight noChangeLight;
+        private static TimerLight noChangeLight;
         private Light purchasableLight0, purchasableLight1, purchasableLight2, purchasableLight3;
-        private CoinDispenser coinDispenser10Yen, coinDispenser50Yen, coinDispenser100Yen, coinDispenser500Yen;
+        private static CoinDispenser coinDispenser10Yen, coinDispenser50Yen, coinDispenser100Yen, coinDispenser500Yen; //might need to remove static
         private CanDispenser canDispenser0, canDispenser1, canDispenser2, canDispenser3;
 
 
@@ -48,7 +48,6 @@ namespace VendingMachine
         public static Coin[] userMoney = new Coin[4];
         public static int totalAmountInserted = 0;
         public static Can[] allProduct = new Can[4];
-
 
         public VendingMachine()
         {
@@ -136,6 +135,11 @@ namespace VendingMachine
             allProduct[2].soldOutLight = soldOutLight2;
             allProduct[3].soldOutLight = soldOutLight3;
 
+            allProduct[0].productCanDispenser = canDispenser0;
+            allProduct[1].productCanDispenser = canDispenser1;
+            allProduct[2].productCanDispenser = canDispenser2;
+            allProduct[3].productCanDispenser = canDispenser3;
+
             // Instantiate your entity and control objects
             // Connect these objects
             //VMControl.mainControl();
@@ -159,7 +163,40 @@ namespace VendingMachine
 
         public static void purchaseItem(Can product)
         {
-            product.Stock--;
+            CoinDispenser[] AllCoinDispensers = { coinDispenser10Yen, coinDispenser50Yen, coinDispenser100Yen,  coinDispenser500Yen};
+            bool changeAvaliable = false;
+
+            if (product.Stock > 0)
+            {
+                if (totalAmountInserted >= product.Price)
+                {
+                    changeAvaliable = Coin.returnChange(totalAmountInserted - product.Price, AllCoinDispensers);
+
+
+                    if (changeAvaliable)
+                    {
+                        product.Stock--;
+
+                        if (product.Stock <= 0)
+                        {
+                            product.flashSoldOut();
+                        }
+
+                        product.dispenseCan();
+
+                        totalAmountInserted = 0;
+
+                        for (int i = 0; i < 4; i++)
+                        {
+                            allProduct[i].canPurchaseLight();
+                        }
+                    }
+                    else
+                    {
+                        noChangeLight.TurnOn3Sec();
+                    }
+                }
+            }
 
         }
  

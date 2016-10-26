@@ -221,6 +221,7 @@ namespace VendingMachine
             // 
             // txtAmount
             // 
+            this.txtAmount.AllowDrop = true;
             this.txtAmount.Location = new System.Drawing.Point(327, 114);
             this.txtAmount.Name = "txtAmount";
             this.txtAmount.ReadOnly = true;
@@ -769,7 +770,7 @@ namespace VendingMachine
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Name = "VendingMachine";
-            this.Text = "Form1";
+            this.Text = "Jacob Dokos";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbxPurLight3)).EndInit();

@@ -15,6 +15,7 @@ namespace VendingMachine
         public bool isPurchasable = false;
         public Light purchaseLight;
         public Light soldOutLight;
+        public CanDispenser productCanDispenser;
 
         public Can(String IName, int IPrice, int IStock)
         {
@@ -44,12 +45,12 @@ namespace VendingMachine
 
         public void dispenseCan()
         {
-            
+            productCanDispenser.Actuate();
         }
 
         public void canPurchaseLight()
         {
-            if (VendingMachine.totalAmountInserted >= this.Price)
+            if (VendingMachine.totalAmountInserted >= this.Price && this.Stock > 0)
             {
                purchaseLight.TurnOn();
             }
