@@ -12,7 +12,6 @@ namespace VendingMachine
         public string Name = "";
         public int Price = 0;
         public int Stock = 0;
-        public bool isPurchasable = false;
         public Light purchaseLight;
         public Light soldOutLight;
         public CanDispenser productCanDispenser;
@@ -22,17 +21,6 @@ namespace VendingMachine
             Name = IName;
             Price = IPrice;
             Stock = IStock;
-            isPurchasable = false;
-        }
-
-        public Can()
-        {
-            Name = "test";
-        }
-
-        public void PurchaseItem()
-        {
-            this.Stock--;
         }
 
         public void flashSoldOut()

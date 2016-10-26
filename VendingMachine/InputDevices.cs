@@ -26,7 +26,6 @@ namespace VendingMachine
         public void CoinInserted()
         {
             // You can add only one line here
-            //moneyInsterted.numberOfCoins++;
             VendingMachine.updateLights(moneyInsterted);
         }
 

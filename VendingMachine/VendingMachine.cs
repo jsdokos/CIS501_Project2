@@ -98,7 +98,7 @@ namespace VendingMachine
             canDispenser2 = new CanDispenser(txtCanDispenser, CANNAMES[2]);
             canDispenser3 = new CanDispenser(txtCanDispenser, CANNAMES[3]);
 
-            //initialize cans, new method for reset?
+            //initialize cans
             for (int i = 0; i < 4; i++)
             {
                 allProduct[i] = new Can(CANNAMES[i], CANPRICES[i], NUMCANS[i]);
@@ -143,15 +143,9 @@ namespace VendingMachine
             CoinDispenser[] tempAllCoinDispensers = { coinDispenser10Yen, coinDispenser50Yen, coinDispenser100Yen, coinDispenser500Yen };
             Coin.AllCoinDispensers = tempAllCoinDispensers; 
 
-            // Instantiate your entity and control objects
-            // Connect these objects
-            //VMControl.mainControl();
-
-
             // Display debug information
             displayCanPricesAndNames();
             updateDebugDisplays();
-
         }
 
         public static void updateLights(Coin moneyInsterted)
@@ -166,7 +160,6 @@ namespace VendingMachine
 
         public static void purchaseItem(Can product)
         {
-            //CoinDispenser[] AllCoinDispensers = { coinDispenser10Yen, coinDispenser50Yen, coinDispenser100Yen,  coinDispenser500Yen};
             bool changeAvaliable = false;
 
             if (product.Stock > 0)
@@ -291,7 +284,7 @@ namespace VendingMachine
         {
             // This is just for a simulation
             canDispenser0.Clear(); // since all canDispenser objects accesses the
-                                      // same textbox object
+            // same textbox object
         }
 
         //TODO Make sure this works
@@ -343,11 +336,6 @@ namespace VendingMachine
             displayNumCans3.Display(allProduct[3].Stock);
 
             amountDisplay.DisplayAmount(totalAmountInserted);
-
-        }
-
-    
-
-        
+        }        
     }
 }

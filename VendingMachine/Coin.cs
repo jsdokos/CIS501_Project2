@@ -20,7 +20,6 @@
 
         public static bool returnChange(int totalMoneytoReturn)
         {
-            //TODO zero case
             bool canReturnchange = true;
             int[] changeToReturn = new int[4];
             int originalAmountToReturn = totalMoneytoReturn;
