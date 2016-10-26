@@ -39,7 +39,6 @@ namespace VendingMachine
         private static CoinDispenser coinDispenser10Yen, coinDispenser50Yen, coinDispenser100Yen, coinDispenser500Yen; //might need to remove static
         private CanDispenser canDispenser0, canDispenser1, canDispenser2, canDispenser3;
 
-
         private CoinInserter coinInserter10Yen, coinInserter50Yen, coinInserter100Yen, coinInserter500Yen;
         private PurchaseButton purchaseButton0, purchaseButton1, purchaseButton2, purchaseButton3;
         private CoinReturnButton coinReturnButton;
@@ -154,7 +153,7 @@ namespace VendingMachine
 
             for (int i = 0; i < 4; i++)
             {
-                allProduct[i].canPurchaseLight();
+                allProduct[i].canPurchaseItem();
             }
         }
 
@@ -184,7 +183,7 @@ namespace VendingMachine
 
                         for (int i = 0; i < 4; i++)
                         {
-                            allProduct[i].canPurchaseLight();
+                            allProduct[i].canPurchaseItem();
                         }
                     }
                     else
@@ -204,7 +203,7 @@ namespace VendingMachine
 
             for (int i = 0; i < 4; i++)
             {
-                allProduct[i].canPurchaseLight();
+                allProduct[i].canPurchaseItem();
             }
         }
  

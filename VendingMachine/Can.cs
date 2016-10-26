@@ -36,7 +36,7 @@ namespace VendingMachine
             productCanDispenser.Actuate();
         }
 
-        public void canPurchaseLight()
+        public void canPurchaseItem()
         {
             if (VendingMachine.totalAmountInserted >= this.Price && this.Stock > 0)
             {
