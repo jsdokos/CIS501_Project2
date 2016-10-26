@@ -122,7 +122,7 @@ namespace VendingMachine
             coinInserter100Yen = new CoinInserter(userMoney[2]);
             coinInserter500Yen = new CoinInserter(userMoney[3]);
 
-            coinReturnButton = new CoinReturnButton(userMoney);
+            coinReturnButton = new CoinReturnButton(userMoney[0]);
 
             //add in lights so they can be easily turned on
             allProduct[0].purchaseLight = purchasableLight0;
@@ -139,6 +139,9 @@ namespace VendingMachine
             allProduct[1].productCanDispenser = canDispenser1;
             allProduct[2].productCanDispenser = canDispenser2;
             allProduct[3].productCanDispenser = canDispenser3;
+
+            CoinDispenser[] tempAllCoinDispensers = { coinDispenser10Yen, coinDispenser50Yen, coinDispenser100Yen, coinDispenser500Yen };
+            Coin.AllCoinDispensers = tempAllCoinDispensers; 
 
             // Instantiate your entity and control objects
             // Connect these objects
@@ -163,14 +166,14 @@ namespace VendingMachine
 
         public static void purchaseItem(Can product)
         {
-            CoinDispenser[] AllCoinDispensers = { coinDispenser10Yen, coinDispenser50Yen, coinDispenser100Yen,  coinDispenser500Yen};
+            //CoinDispenser[] AllCoinDispensers = { coinDispenser10Yen, coinDispenser50Yen, coinDispenser100Yen,  coinDispenser500Yen};
             bool changeAvaliable = false;
 
             if (product.Stock > 0)
             {
                 if (totalAmountInserted >= product.Price)
                 {
-                    changeAvaliable = Coin.returnChange(totalAmountInserted - product.Price, AllCoinDispensers);
+                    changeAvaliable = Coin.returnChange(totalAmountInserted - product.Price);
 
 
                     if (changeAvaliable)
@@ -198,6 +201,18 @@ namespace VendingMachine
                 }
             }
 
+        }
+
+        public static void returnAllChange()
+        {
+            Coin.returnChange(VendingMachine.totalAmountInserted);
+
+            totalAmountInserted = 0;
+
+            for (int i = 0; i < 4; i++)
+            {
+                allProduct[i].canPurchaseLight();
+            }
         }
  
         private void btnCoinInserter10Yen_Click(object sender, EventArgs e)
@@ -283,8 +298,6 @@ namespace VendingMachine
         private void btnReset_Click(object sender, EventArgs e)
         {
             // Write the body to reset the field values of entity objects
-
-            //initialize cans, new method for reset?
             for (int i = 0; i < 4; i++)
             {
                 allProduct[i].Stock = NUMCANS[i];
@@ -292,6 +305,12 @@ namespace VendingMachine
                 allProduct[i].purchaseLight.TurnOff();
                 allProduct[i].soldOutLight.TurnOff();
             }
+
+            coinDispenser10Yen.Clear();
+            coinDispenser50Yen.Clear();
+            coinDispenser100Yen.Clear();
+            coinDispenser500Yen.Clear();
+
             totalAmountInserted = 0;
             displayCanPricesAndNames();
             updateDebugDisplays();

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VendingMachine
+﻿namespace VendingMachine
 {
     public class Coin
     {
         public int value;
         public int numberOfCoins;
+        public static CoinDispenser[] AllCoinDispensers;
 
         public Coin(int IValue, int INum)
         {
@@ -23,7 +18,7 @@ namespace VendingMachine
             this.numberOfCoins++;
         }
 
-        public static bool returnChange(int totalMoneytoReturn, CoinDispenser[] AllCoinDispensers)
+        public static bool returnChange(int totalMoneytoReturn)
         {
             //TODO zero case
             bool canReturnchange = true;
@@ -72,20 +67,7 @@ namespace VendingMachine
                     VendingMachine.userMoney[i].numberOfCoins -= changeToReturn[i];
                 }
             }
-
-
-
             return canReturnchange;
-        }
-
-        public void displayAmount()
-        {
-            
-        }
-
-        public void noChange()
-        {
-            
         }
     }
 }

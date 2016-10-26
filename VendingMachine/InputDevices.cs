@@ -53,14 +53,15 @@ namespace VendingMachine
         // replace the following default constructor with a constructor that takes
         // an object to be set to the above field
 
-        private Coin[] moneyCoins;
-        public CoinReturnButton(Coin[] ICoins)
+        private Coin moneyCoins;
+        public CoinReturnButton(Coin ICoins)
         {
             moneyCoins = ICoins;
         }
         public void ButtonPressed()
         {
             // You can add only one lines here
+            VendingMachine.returnAllChange();
         }
     }
 }
